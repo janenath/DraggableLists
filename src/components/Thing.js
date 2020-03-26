@@ -3,8 +3,7 @@ import { Draggable } from 'react-beautiful-dnd';
 
 export default class Thing extends React.Component {
     render() {
-        return (
-        
+        return ( 
         <Draggable draggableId={this.props.thing.id} index={this.props.index}>
             {(provided) => (
                 <div className="thingContainer"
