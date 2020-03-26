@@ -1,23 +1,21 @@
 import React from 'react';
 
+import Selected from './components/Selected';
+import Unselected from './components/Unselected';
+import Item from './components/Item';
+import Undo from './components/Undo';
+import Redo from './components/Redo';
+
 function App() {
   return (
     <div className="App">
         <div className="Container">
-          <div className="listContainer">
-            <h2>Unselected</h2>
-            <div className="Unselected">
-            </div>
-          </div>
-          <div className="listContainer">
-            <h2>Selected</h2>
-            <div className="Selected">
-            </div>
-          </div>
+            <Unselected />    
+            <Selected />
         </div>
         <div className="buttonContainer">
-          <button>Undo</button>
-          <button>Redo</button>
+          <Undo />
+          <Redo />
         </div>
     </div>
   );
