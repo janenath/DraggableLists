@@ -14,14 +14,20 @@ class App extends React.Component {
   futureState= [];
 
   logState = (e) => {
-    console.log(this.state)
-    console.log(this.previousState)
-    console.log(this.futureState)
+    console.log(this.state);
+    console.log(this.previousState);
+    console.log(this.futureState);
   }
 
   undo = (e) => {
-    this.setState(this.previousState[this.previousState.length-1])
-    this.previousState.splice(this.previousState.length-1, 1)
+    this.setState(this.previousState[this.previousState.length-1]);
+    this.futureState.splice(this.futureState.length-1, 0, this.state)
+    this.previousState.splice(this.previousState.length-1, 1);
+  }
+
+  redo = (e) => {
+    this.setState(this.futureState[this.futureState.length-1]);
+    this.futureState.splice(this.futureState.length-1);
   }
 
   onDragEnd = (result) => {
@@ -97,8 +103,9 @@ class App extends React.Component {
             })}
           </DragDropContext>
         </div>
-        <div className="undo" onClick={this.undo}>Undo</div>
-        <div className="logState" onClick={this.logState}>Log State</div>
+        <div className="button" onClick={this.undo}>Undo</div>
+        <div className="button" onClick={this.redo}>Redo</div>
+        <div className="button" onClick={this.logState}>Log State</div>
 
       </div>
     ) 

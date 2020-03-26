@@ -40,16 +40,19 @@ $open-sans: 'Open Sans', sans-serif;
     border-radius: 20px;
     background: white;
 }
-.logState {
+.button {
     display: flex;
     align-items: center;
     margin: 10px;
     padding: 10px;
     font-size: 18px;
+    border: 2px solid black;
     border-radius: 20px;
-    background: grey;
-    color: white;
+    color: grey;
+    background: white;
 }
-.logState:hover {
+.button:hover {
     cursor: pointer;
+    color: white;
+    background: grey;
 }
