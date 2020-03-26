@@ -10,8 +10,18 @@ import data from './data';
 class App extends React.Component {
   state = data;
 
+  previousState = [];
+  futureState= [];
+
   logState = (e) => {
     console.log(this.state)
+    console.log(this.previousState)
+    console.log(this.futureState)
+  }
+
+  undo = (e) => {
+    this.setState(this.previousState[this.previousState.length-1])
+    this.previousState.splice(this.previousState.length-1, 1)
   }
 
   onDragEnd = (result) => {
@@ -45,7 +55,8 @@ class App extends React.Component {
           [newColumn.id]: newColumn
         }
       }
-      this.setState(newState); //set state to new state
+      this.previousState.push(this.state) //push current state to previousState array
+      this.setState(newState); //update current state to new state
       return;
     }
 
@@ -70,7 +81,8 @@ class App extends React.Component {
         [newFinish.id]: newFinish
       }
     }
-    this.setState(newState); //set state to new state
+    this.previousState.push(this.state) //push current state to previousState array
+    this.setState(newState); //update current state to new state
   }
 
   render(){
@@ -85,7 +97,9 @@ class App extends React.Component {
             })}
           </DragDropContext>
         </div>
+        <div className="undo" onClick={this.undo}>Undo</div>
         <div className="logState" onClick={this.logState}>Log State</div>
+
       </div>
     ) 
   }
