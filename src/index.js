@@ -20,14 +20,15 @@ class App extends React.Component {
   }
 
   undo = (e) => {
-    this.setState(this.previousState[this.previousState.length-1]);
-    this.futureState.splice(this.futureState.length-1, 0, this.state)
-    this.previousState.splice(this.previousState.length-1, 1);
+    this.futureState.unshift(this.state); //add current state to front end of future array
+    this.setState(this.previousState[this.previousState.length-1]); //set current state to last previous state
+    this.previousState.splice(this.previousState.length-1, 1) //remove last previous state from array
   }
 
   redo = (e) => {
-    this.setState(this.futureState[this.futureState.length-1]);
-    this.futureState.splice(this.futureState.length-1);
+    this.previousState.push(this.state); //add current state to end of previous state array
+    this.setState(this.futureState[0]); //set current state to most recent future state
+    this.futureState.shift(); //remove most recent future state from array
   }
 
   onDragEnd = (result) => {
@@ -103,10 +104,11 @@ class App extends React.Component {
             })}
           </DragDropContext>
         </div>
-        <div className="button" onClick={this.undo}>Undo</div>
-        <div className="button" onClick={this.redo}>Redo</div>
-        <div className="button" onClick={this.logState}>Log State</div>
-
+        <div className="buttonContainer">
+          <div className="button" onClick={this.undo}>Undo</div>
+          <div className="button" onClick={this.redo}>Redo</div>
+          <div className="button" onClick={this.logState}>Log State</div>
+        </div>
       </div>
     ) 
   }

@@ -40,6 +40,10 @@ $open-sans: 'Open Sans', sans-serif;
     border-radius: 20px;
     background: white;
 }
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+}
 .button {
     display: flex;
     align-items: center;
