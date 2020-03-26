@@ -1,17 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { DragDropContext } from 'react-beautiful-dnd';
 import './main.scss';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+
+import Column from './components/Column';
+
+import data from './data';
+
+class App extends React.Component {
+  state = data;
+
+  onDragEnd = result => {
+    console.log(this.state)
+  }
+
+  render(){
+    return(
+      <div className="App">
+        <DragDropContext onDragEnd={this.onDragEnd}>
+          {this.state.columnOrder.map(columnId => {
+            const column = this.state.columns[columnId];
+            const things = column.thingIds.map(thingId => this.state.things[thingId]);
+      
+            return <Column key={column.id} column={column} things={things} />
+          })}
+        </DragDropContext>
+      </div>
+    ) 
+  }
+}
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <App />,
+    document.getElementById('root')
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+
